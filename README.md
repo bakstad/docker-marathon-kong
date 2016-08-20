@@ -11,7 +11,7 @@ The official docker-kong image allows for:
 1. linking `Postgres` or `Cassandra`  database containers
 2. connecting to external databases via custom `kong.yml` config file by replacing the `/etc/kong/` volume.
 
-However when using `Mesos` and `Marathon` containers are deployed across multiple nodes in a cluster. Therefore it's not feasible to mount custom config files into volumes on each machine which are spun up and down on demand. See related question [here][envvar-question]].
+However when using `Mesos` and `Marathon` containers are deployed across multiple nodes in a cluster. Therefore it's not feasible to mount custom config files into volumes on each machine which are spun up and down on demand. See related question [here][envvar-question].
 
 When running multiple instances of Kong on multiple nodes there is a need to advertise to the rest of the cluster the ip and port a specific instance can be reached on.
 
@@ -28,16 +28,16 @@ Existing `docker-kong` usages still applies.
 
 ## Marathon
 
-Marathon injects `$HOST` and `$PORT{n}` into the environment of the container.
+Marathon injects `$HOST` and `$PORT{n}` and more into the environment of the container. See [the marathon documentation](https://mesosphere.github.io/marathon/docs/task-environment-vars.html) for full list of variables.
 
-It is assumed that the following port configuration is used in the marathon app file:
+This image assumes that `$PORT3` is the port used for inter-nodes communication. Example port configuration in marathon:
 
-| Container Port | Env Var | TCP/UDP |
-| -------------- | ------- | ------- |
-| 8000 | `$PORT0` | tcp |
-| 8001 | `$PORT1` | tcp |
-| 8443 | `$PORT2` | tcp |
-| 7946 | `$PORT3` | udp,tcp |
+| Container Port | Env Var | TCP/UDP | Description |
+| -------------- | ------- | ------- | ----------- |
+| 8000 | `$PORT0` | tcp | proyxing |
+| 8001 | `$PORT1` | tcp | admin api |
+| 8443 | `$PORT2` | tcp | proxying https |
+| 7946 | `$PORT3` | udp,tcp | inter-nodes communication |
 
 ## Environment variables
 
