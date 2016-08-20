@@ -27,13 +27,15 @@ if [ -n "$POSTGRES_PASSWORD" ]; then
   sed -ie "s/#  password: kong/  password: $POSTGRES_PASSWORD/" /etc/kong/kong.yml
 fi
 
-# Configure kong to advertise its external ip and port to the rest of the cluster
+if [ -n "$TTL_ON_FAILURE" ]; then
+  sed -ie "s/  ttl_on_failure: 3600/  ttl_on_failure: $TTL_ON_FAILURE/" /etc/kong/kong.yml
+fi
 
+# Configure kong to advertise its external ip and port to the rest of the cluster
 # Find ip from marathon $HOST variable
 HOST_IP=`ping -c1 -n $HOST | head -n1 | sed "s/.*(\([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*\)).*/\1/g"`
 ADVERTISE_ADDR="$HOST_IP:$PORT3"
-
-echo -e '\ncluster:\n  advertise: "'$ADVERTISE_ADDR'"' >> /etc/kong/kong.yml
+sed -ie "s/  advertise: \"0\.0\.0\.0:7946\"/  advertise: \"$ADVERTISE_ADDR\"/" /etc/kong/kong.yml
 
 # Start
 exec "$@"

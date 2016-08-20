@@ -11,6 +11,9 @@ cassandra:
 #  user: cassandra
 #  password: cassandra
 cluster_listen: "0.0.0.0:7946"
+cluster:
+  advertise: "0.0.0.0:7946"
+  ttl_on_failure: 3600
 nginx: |
   {{user}}
   worker_processes auto;
