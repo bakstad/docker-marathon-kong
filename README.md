@@ -2,4 +2,6 @@
 
 # TODO
 
-* Document port ordering, and that `$PORT3` is reserved for CLUSTER_LISTEN port.
+## Document
+* port ordering, and that `$PORT3` is reserved for advertise port.
+* Default to postgres db
