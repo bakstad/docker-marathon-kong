@@ -27,8 +27,8 @@ if [ -n "$POSTGRES_PASSWORD" ]; then
   sed -ie "s/#  password: kong/  password: $POSTGRES_PASSWORD/" /etc/kong/kong.yml
 fi
 
-if [ -n "$TTL_ON_FAILURE" ]; then
-  sed -ie "s/  ttl_on_failure: 3600/  ttl_on_failure: $TTL_ON_FAILURE/" /etc/kong/kong.yml
+if [ -n "$CLUSTER_TTL_ON_FAILURE" ]; then
+  sed -ie "s/  ttl_on_failure: 3600/  ttl_on_failure: $CLUSTER_TTL_ON_FAILURE/" /etc/kong/kong.yml
 fi
 
 # Configure kong to advertise its external ip and port to the rest of the cluster

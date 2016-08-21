@@ -2,7 +2,7 @@
 
 This an extension of the [official Docker image][docker-kong-url] for [Kong][kong-url], with support for easy clustering when running on a [mesos][mesos-url]/[marathon][marathon-url] platform.
 
-This repo is based heavily on [LittleBayDigital's docker image][littlebaydigital-docker-url].
+This image is based heavily on [LittleBayDigital's docker image][littlebaydigital-docker-url].
 
 # Justifications
 
@@ -63,7 +63,7 @@ The following extra Environment Variables are added:
 
 | Env Var | Default | Description |
 | --------|---------| ------------|
-| TTL_ON_FAILURE | 3600 | Optional. |
+| CLUSTER_TTL_ON_FAILURE | 3600 | Optional. |
 
 [kong-url]: http://getkong.org
 [docker-kong-url]: https://hub.docker.com/r/mashape/kong/
