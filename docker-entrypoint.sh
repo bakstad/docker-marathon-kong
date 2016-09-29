@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/local/bin/dumb-init /bin/bash
 set -e
 
 # Setting up the proper database
